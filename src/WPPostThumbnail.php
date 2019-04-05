@@ -5,6 +5,9 @@ namespace WaughJ\WPPostThumbnail
 {
 	use WaughJ\WPUploadPicture\WPUploadPicture;
 
+	// Ensures WordPress can use thumbnails.
+	add_theme_support( 'post-thumbnails' );
+
 	class WPPostThumbnail
 	{
 		public function __construct( int $post_id, array $img_attributes = [] )
