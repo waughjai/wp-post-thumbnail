@@ -42,8 +42,10 @@
 	{
 		return
 		[
-			'basedir' => getcwd(),
-			'baseurl' => 'https://www.example.com/wp-content/uploads'
+			'basedir' => getcwd() . '/tests',
+			'path' => getcwd() . '/tests/2018/12',
+			'baseurl' => 'https://www.example.com/wp-content/uploads',
+			'url' => 'https://www.example.com/wp-content/uploads/2018/12'
 		];
 	}
 

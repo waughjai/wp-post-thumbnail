@@ -3,10 +3,8 @@
 declare( strict_types = 1 );
 namespace WaughJ\WPPostThumbnail
 {
+	use WaughJ\FileLoader\MissingFileException;
 	use WaughJ\WPUploadPicture\WPUploadPicture;
-
-	// Ensures WordPress can use thumbnails.
-	add_theme_support( 'post-thumbnails' );
 
 	class WPPostThumbnail
 	{
@@ -23,7 +21,14 @@ namespace WaughJ\WPPostThumbnail
 
 		public function getHTML() : string
 		{
-			return ( $this->id ) ? ( string )( new WPUploadPicture( ( int )( $this->id ), [ 'img-attributes' => $this->img_attributes ] ) ) : '';
+			try
+			{
+				return ( $this->id ) ? ( string )( new WPUploadPicture( ( int )( $this->id ), [ 'img-attributes' => $this->img_attributes ] ) ) : '';
+			}
+			catch ( MissingFileException $e )
+			{
+				return '';
+			}
 		}
 
 		private $id;
