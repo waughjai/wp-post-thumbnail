@@ -1,7 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use WaughJ\FileLoader\MissingFileException;
 use WaughJ\WPPostThumbnail\WPPostThumbnail;
+use WaughJ\WPUploadImage\WPMissingMediaException;
 
 require_once( 'MockWordPress.php' );
 
@@ -16,10 +18,34 @@ class WPPostThumbnailTest extends TestCase
 
 	public function testNonexistentImage()
 	{
-		$thumb = new WPPostThumbnail( 1 );
-		$this->assertStringContainsString( '', $thumb->getHTML() );
-		$thumb2 = new WPPostThumbnail( 12134 );
-		$this->assertStringContainsString( '', $thumb2->getHTML() );
+		$this->expectException( WPMissingMediaException::class );
+		$thumb = new WPPostThumbnail( 54532 );
+	}
+
+	public function testNonexistentImageIDs()
+	{
+		try
+		{
+			$thumb = new WPPostThumbnail( 137325 );
+		}
+		catch ( WPMissingMediaException $e )
+		{
+			$this->assertEquals( 137325, $e->getMissingIDs()[ 0 ] );
+		}
+	}
+
+	public function testMissingImage()
+	{
+		try
+		{
+			$thumb = new WPPostThumbnail( 1 );
+		}
+		catch ( MissingFileException $e )
+		{
+			$thumb = $e->getFallbackContent();
+		}
+		$this->assertStringContainsString( ' src="https://www.example.com/wp-content/uploads/2018/12/demo-150x150.png', $thumb->getHTML() );
+		$this->assertStringNotContainsString( 'm?=', $thumb->getHTML() );
 	}
 
 	public function testVersionless()
