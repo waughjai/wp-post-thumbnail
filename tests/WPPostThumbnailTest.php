@@ -11,7 +11,7 @@ class WPPostThumbnailTest extends TestCase
 {
 	public function testClass()
 	{
-		$thumb = new WPPostThumbnail( 2, [ 'class' => 'thumb-img', 'id' => 'thumb2' ] );
+		$thumb = new WPPostThumbnail( 2, [ 'img-attributes' => [ 'class' => 'thumb-img', 'id' => 'thumb2' ] ] );
 		$this->assertStringContainsString( 'class="thumb-img"', $thumb->getHTML() );
 		$this->assertStringContainsString( 'id="thumb2"', $thumb->getHTML() );
 	}
@@ -50,7 +50,7 @@ class WPPostThumbnailTest extends TestCase
 
 	public function testVersionless()
 	{
-		$thumb = new WPPostThumbnail( 2, [ 'class' => 'thumb-img', 'show-version' => false ] );
+		$thumb = new WPPostThumbnail( 2, [ 'img-attributes' => [ 'class' => 'thumb-img' ], 'show-version' => false ] );
 		$this->assertStringContainsString( 'class="thumb-img"', $thumb->getHTML() );
 		$this->assertStringNotContainsString( 'm?=', $thumb->getHTML() );
 		$this->assertStringNotContainsString( ' show-version="', $thumb->getHTML() );
