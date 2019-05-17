@@ -135,5 +135,5 @@
 
 	function get_post_thumbnail_id( $post_id )
 	{
-		return $post_id;
+		return ( $post_id < 3 ) ? ( string )( $post_id ) : '';
 	}

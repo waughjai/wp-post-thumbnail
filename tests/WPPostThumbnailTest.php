@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use WaughJ\FileLoader\MissingFileException;
 use WaughJ\WPPostThumbnail\WPPostThumbnail;
-use WaughJ\WPUploadImage\WPMissingMediaException;
+use WaughJ\WPPostThumbnail\WPMissingPostThumbnailException;
 
 require_once( 'MockWordPress.php' );
 
@@ -18,7 +18,7 @@ class WPPostThumbnailTest extends TestCase
 
 	public function testNonexistentImage()
 	{
-		$this->expectException( WPMissingMediaException::class );
+		$this->expectException( WPMissingPostThumbnailException::class );
 		$thumb = new WPPostThumbnail( 54532 );
 	}
 
@@ -28,7 +28,7 @@ class WPPostThumbnailTest extends TestCase
 		{
 			$thumb = new WPPostThumbnail( 137325 );
 		}
-		catch ( WPMissingMediaException $e )
+		catch ( WPMissingPostThumbnailException $e )
 		{
 			$this->assertEquals( 137325, $e->getMissingIDs()[ 0 ] );
 		}
