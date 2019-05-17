@@ -11,4 +11,4 @@ Pass an array of attributes as the constructor's 2nd argument to customize the H
 
 # Error Handling
 
-Error Handling works just as for its parent class, HTMLPicture. See that class’s documentation for mo’ information.
+If the post for the given ID doesn’t have a thumbnail, it’ll throw a WPMissingPostThumbnailException exception.
