@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use WaughJ\FileLoader\MissingFileException;
 use WaughJ\WPPostThumbnail\WPPostThumbnail;
+use WaughJ\WPPostThumbnail\WPPostThumbnailType;
 use WaughJ\WPPostThumbnail\WPMissingPostThumbnailException;
 
 require_once( 'MockWordPress.php' );
@@ -54,5 +55,14 @@ class WPPostThumbnailTest extends TestCase
 		$this->assertStringContainsString( 'class="thumb-img"', $thumb->getHTML() );
 		$this->assertStringNotContainsString( 'm?=', $thumb->getHTML() );
 		$this->assertStringNotContainsString( ' show-version="', $thumb->getHTML() );
+	}
+
+	public function testType()
+	{
+		$thumb = new WPPostThumbnail( 2, [ 'class' => 'normal', 'size' => 'thumbnail' ], WPPostThumbnailType::image() );
+		$this->assertStringContainsString( 'class="normal"', $thumb->getHTML() );
+		$this->assertStringNotContainsString( ' size="', $thumb->getHTML() );
+		$this->assertStringNotContainsString( '<picture', $thumb->getHTML() );
+		$this->assertStringNotContainsString( '</picture>', $thumb->getHTML() );
 	}
 }

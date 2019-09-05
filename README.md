@@ -15,6 +15,10 @@ If the post for the given ID doesn’t have a thumbnail, it’ll throw a WPMissi
 
 ## Changelog
 
+### 0.5.0
+
+* Make usable with both WPUploadPicture & WPUploadImage.
+
 ### 0.4.0
 * Implement WPUploadImage's WPMissingMediaException error handling
 
